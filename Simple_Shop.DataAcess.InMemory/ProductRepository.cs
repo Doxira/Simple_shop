@@ -49,9 +49,9 @@ namespace Simple_Shop.DataAcess.InMemory
             }
         }
 
-        public Product Find (string ID)
+        public Product Find (string Id)
         {
-            Product product = products.Find(p => p.ID == product.ID);
+            Product product = products.Find(p => p.ID == Id);
 
             if (product != null)
             {
@@ -68,9 +68,9 @@ namespace Simple_Shop.DataAcess.InMemory
             return products.AsQueryable();
         }
 
-        public void Delete(string id) 
+        public void Delete(string Id) 
         {
-            Product productToDelete = products.Find(p => p.ID == product.ID);
+            Product productToDelete = products.Find(p => p.ID == Id);
 
             if (productToDelete != null)
             {
