@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Simple_Shop.Core.Models;
+using Simple_Shop.Core.VIewModels;
 using Simple_Shop.DataAcess.InMemory;
 
 namespace Simple_Shop.WebUI.Controllers
@@ -12,9 +13,12 @@ namespace Simple_Shop.WebUI.Controllers
     {
         ProductRepository context;
 
+        ProductCategoryRepository productCategories;
+
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -25,8 +29,10 @@ namespace Simple_Shop.WebUI.Controllers
 
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+            return View(viewModel);
         }
         [HttpPost]
         public ActionResult Create(Product product)
@@ -53,7 +59,10 @@ namespace Simple_Shop.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product= product;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
             }
         }
         [HttpPost]
