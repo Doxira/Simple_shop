@@ -11,14 +11,14 @@ namespace Simple_Shop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        ProductRepository context;
+        InMemoryRepository<Product> context;
 
-        ProductCategoryRepository productCategories;
+        InMemoryRepository<ProductCategory> productCategories;
 
         public ProductManagerController()
         {
-            context = new ProductRepository();
-            productCategories = new ProductCategoryRepository();
+            context = new InMemoryRepository<Product>();
+            productCategories = new InMemoryRepository<ProductCategory>();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -44,7 +44,7 @@ namespace Simple_Shop.WebUI.Controllers
             else
             {
                 context.Insert(product);
-                context.commit();
+                context.Commit();
 
                 return RedirectToAction("Index");
             }
@@ -86,7 +86,7 @@ namespace Simple_Shop.WebUI.Controllers
                 productToEdit.Image = product.Image;
                 productToEdit.Name = product.Name;
 
-                context.commit();
+                context.Commit();
 
                 return RedirectToAction("Index");
 
@@ -117,7 +117,7 @@ namespace Simple_Shop.WebUI.Controllers
             else
             {
                 context.Delete(Id);
-                context.commit();
+                context.Commit();
                 return RedirectToAction("Index");
             }
         }
