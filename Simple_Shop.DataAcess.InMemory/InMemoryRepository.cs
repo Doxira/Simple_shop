@@ -1,4 +1,5 @@
-﻿using Simple_Shop.Core.Models;
+﻿using Simple_Shop.Core.Contracts;
+using Simple_Shop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Simple_Shop.DataAcess.InMemory
 {
-    public class InMemoryRepository<T> where T : BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
-        ObjectCache cache =  MemoryCache.Default;
+        ObjectCache cache = MemoryCache.Default;
 
         List<T> items;
 
@@ -18,9 +19,9 @@ namespace Simple_Shop.DataAcess.InMemory
 
         public InMemoryRepository()
         {
-          classname = typeof(T).Name;
+            classname = typeof(T).Name;
 
-          items = cache[classname] as List<T>;
+            items = cache[classname] as List<T>;
 
             if (items == null)
             {
@@ -34,15 +35,15 @@ namespace Simple_Shop.DataAcess.InMemory
             cache[classname] = items;
         }
 
-        public void Insert (T item)
+        public void Insert(T item)
         {
             items.Add(item);
         }
 
-        public void Update (T item)
+        public void Update(T item)
         {
             T itemToUpdate = items.Find(x => x.Id == item.Id);
-            if (itemToUpdate!=null)
+            if (itemToUpdate != null)
             {
                 itemToUpdate = item;
             }
@@ -55,7 +56,7 @@ namespace Simple_Shop.DataAcess.InMemory
         public T Find(string Id)
         {
             T item = items.Find(i => i.Id == Id);
-            if (item!=null)
+            if (item != null)
             {
                 return item;
             }
@@ -66,7 +67,7 @@ namespace Simple_Shop.DataAcess.InMemory
             }
         }
 
-        public IQueryable<T> Collection() 
+        public IQueryable<T> Collection()
         {
             return items.AsQueryable();
         }

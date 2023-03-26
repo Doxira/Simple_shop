@@ -1,4 +1,5 @@
-﻿using Simple_Shop.Core.Models;
+﻿using Simple_Shop.Core.Contracts;
+using Simple_Shop.Core.Models;
 using Simple_Shop.DataAcess.InMemory;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Simple_Shop.WebUI.Controllers
     {
         // GET: ProductCategoryManager
 
-        InMemoryRepository<ProductCategory> context;
+        IRepository<ProductCategory> context;
 
-        public ProductCategoryManagerController()
+        public ProductCategoryManagerController(IRepository<ProductCategory> context)
         {
-            context = new InMemoryRepository<ProductCategory>();
+            this.context = context;
         }
         // GET: ProductManager
         public ActionResult Index()
