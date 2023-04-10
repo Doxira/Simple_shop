@@ -1,8 +1,7 @@
 using Simple_Shop.Core.Contracts;
 using Simple_Shop.Core.Models;
-using Simple_Shop.DataAcess.InMemory;
+using Simple_Shop.DataAccess.SQL;
 using System;
-using System.Runtime.InteropServices;
 using Unity;
 
 namespace Simple_Shop.WebUI
@@ -45,8 +44,8 @@ namespace Simple_Shop.WebUI
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType <IRepository<Product>, InMemoryRepository<Product>>();
-            container.RegisterType<IRepository<ProductCategory>, InMemoryRepository<ProductCategory>>();
+            container.RegisterType<IRepository<Product>, SQLRepository<Product>>();
+            container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
         }
     }
 }
